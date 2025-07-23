@@ -5,8 +5,8 @@ const studentSchema = new mongoose.Schema({
   name: { type: String, required: true }, // họ tên
   dob: { type: Date }, // ngày sinh
   hometown: { type: String }, // quê quán
-  phone: { type: String, unique: true }, // sdt
-  email: { type: String, unique: true }, // email
+  phone: { type: String }, // sdt
+  email: { type: String}, // email
   major: { type: mongoose.Schema.Types.ObjectId, ref: 'Major', required: true }, // chuyên ngành
   password: { type: String, required: true }, // mật khẩu
 });

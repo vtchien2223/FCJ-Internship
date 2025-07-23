@@ -12,7 +12,8 @@ function ScoreView() {
       setError('');
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:3000/api/subjects/me', {
+        const apiBase = process.env.REACT_APP_API_BASE_URL;
+        const res = await axios.get(`${apiBase}/api/subjects/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setScores(res.data);

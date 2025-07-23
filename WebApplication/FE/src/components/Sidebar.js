@@ -11,6 +11,7 @@ const sidebarMenus = [
       { label: 'Lịch thi' },
     ],
   },
+  { label: 'Import sinh viên' },
   { label: 'Học phí' },
   { label: 'Yêu cầu - Trợ giúp' },
   { label: 'Đánh giá rèn luyện' },

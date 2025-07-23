@@ -2,6 +2,7 @@ import React from 'react';
 import StudentProfile from './StudentProfile';
 import ScoreView from './ScoreView';
 import ScheduleView from './ScheduleView';
+import ImportStudents from './ImportStudents';
 
 function MainContent({ selectedMenu }) {
   if (selectedMenu === 'Hồ sơ cá nhân') {
@@ -12,6 +13,9 @@ function MainContent({ selectedMenu }) {
   }
   if (selectedMenu === 'Thiếu khoá biểu') {
     return <ScheduleView />;
+  }
+  if (selectedMenu === 'Import sinh viên') {
+    return <ImportStudents />;
   }
   return (
     <div style={{ marginLeft: 220, marginTop: 56, padding: 32 }}>

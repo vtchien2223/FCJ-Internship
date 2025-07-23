@@ -38,7 +38,8 @@ function ScheduleView() {
   useEffect(() => {
     const fetchSemesters = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/semesters');
+        const apiBase = process.env.REACT_APP_API_BASE_URL;
+        const res = await axios.get(`${apiBase}/api/semesters`);
         setSemesters(res.data);
         if (res.data.length > 0) setSelectedSemester(res.data[0]._id);
       } catch (err) {
@@ -54,7 +55,8 @@ function ScheduleView() {
       setLoading(true);
       setError('');
       try {
-        const res = await axios.get('http://localhost:3000/api/schedules');
+        const apiBase = process.env.REACT_APP_API_BASE_URL;
+        const res = await axios.get(`${apiBase}/api/schedules`);
         setSchedules(res.data.filter(s => s.semester?._id === selectedSemester));
         const semester = semesters.find(s => s._id === selectedSemester);
         if (semester) {

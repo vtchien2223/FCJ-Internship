@@ -13,7 +13,8 @@ function StudentProfile() {
       try {
         const token = localStorage.getItem('token');
         // Giả định backend có API /api/students/me trả về thông tin sinh viên theo token
-        const res = await axios.get('http://localhost:3000/api/students/me', {
+        const apiBase = process.env.REACT_APP_API_BASE_URL;
+        const res = await axios.get(`${apiBase}/api/students/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setStudent(res.data);

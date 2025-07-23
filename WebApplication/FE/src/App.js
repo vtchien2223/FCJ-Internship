@@ -20,7 +20,8 @@ function App() {
     setError('');
     setSuccess('');
     try {
-      const res = await axios.post('http://localhost:3000/api/auth/login', { studentId, password });
+      const apiBase = process.env.REACT_APP_API_BASE_URL;
+      const res = await axios.post(`${apiBase}/api/auth/login`, { studentId, password });
       localStorage.setItem('token', res.data.token);
       setSuccess('Đăng nhập thành công!');
       setTimeout(() => setPage('home'), 500);
