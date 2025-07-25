@@ -14,7 +14,11 @@ async function createSchedule(req, res) {
 // Lấy tất cả thời khoá biểu
 async function getSchedules(req, res) {
   try {
-    const schedules = await Schedule.find().populate('semester class subject teacher');
+    const filter = {};
+    if (req.query.teacherId) {
+      filter.teacher = req.query.teacherId;
+    }
+    const schedules = await Schedule.find(filter).populate('semester class subject teacher');
     res.json(schedules);
   } catch (err) {
     res.status(500).json({ error: err.message });

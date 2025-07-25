@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Home from './Home';
+import TeacherHome from './TeacherHome';
 
 function App() {
   const [studentId, setStudentId] = useState('');
@@ -8,10 +9,17 @@ function App() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [page, setPage] = useState('login');
+  const [userType, setUserType] = useState('student');
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setPage('home');
+    const token = localStorage.getItem('token');
+    const userType = localStorage.getItem('userType');
+    if (token) {
+      if (userType === 'teacher') {
+        setPage('teacher');
+      } else {
+        setPage('home');
+      }
     }
   }, []);
 
@@ -21,10 +29,16 @@ function App() {
     setSuccess('');
     try {
       const apiBase = process.env.REACT_APP_API_BASE_URL;
-      const res = await axios.post(`${apiBase}/api/auth/login`, { studentId, password });
+      const res = await axios.post(`${apiBase}/api/auth/login`, { studentId, password, userType });
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('userType', res.data.userType);
+      if (res.data.userType === 'teacher' && res.data.teacherId) {
+        localStorage.setItem('teacherId', res.data.teacherId);
+      } else {
+        localStorage.removeItem('teacherId');
+      }
       setSuccess('Đăng nhập thành công!');
-      setTimeout(() => setPage('home'), 500);
+      setTimeout(() => setPage(res.data.userType === 'teacher' ? 'teacher' : 'home'), 500);
     } catch (err) {
       setError(err.response?.data?.error || 'Đăng nhập thất bại!');
     }
@@ -39,14 +53,23 @@ function App() {
     setSuccess('');
   };
 
+  if (page === 'teacher') return <TeacherHome onLogout={handleLogout} />;
   if (page === 'home') return <Home onLogout={handleLogout} />;
 
   return (
     <div style={{ maxWidth: 400, margin: '100px auto', padding: 24, border: '1px solid #eee', borderRadius: 8 }}>
-      <h2>Đăng nhập Sinh viên</h2>
+      <h2>Đăng nhập</h2>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: 12 }}>
-          <label>Mã sinh viên</label>
+          <label>
+            <input type="radio" name="userType" value="student" checked={userType === 'student'} onChange={() => setUserType('student')} /> Sinh viên
+          </label>
+          <label style={{ marginLeft: 16 }}>
+            <input type="radio" name="userType" value="teacher" checked={userType === 'teacher'} onChange={() => setUserType('teacher')} /> Giảng viên
+          </label>
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <label>{userType === 'student' ? 'Mã sinh viên' : 'Mã giảng viên'}</label>
           <input
             type="text"
             value={studentId}

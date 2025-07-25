@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
+import { Sidebar, MainContent } from './student';
 import Header from './components/Header';
-import MainContent from './components/MainContent';
 
 function Home({ onLogout }) {
   const [selectedMenu, setSelectedMenu] = useState('Trang chủ');

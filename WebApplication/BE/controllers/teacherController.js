@@ -1,8 +1,11 @@
 const Teacher = require('../models/Teacher');
+const bcrypt = require('bcrypt');
 
 async function createTeacher(req, res) {
   try {
-    const teacher = new Teacher(req.body);
+    const { password, ...rest } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const teacher = new Teacher({ ...rest, password: hashedPassword });
     await teacher.save();
     res.status(201).json(teacher);
   } catch (err) {

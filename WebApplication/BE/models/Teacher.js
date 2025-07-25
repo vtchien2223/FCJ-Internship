@@ -6,6 +6,7 @@ const teacherSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true }, // email
   phone: { type: String, required: true, unique: true }, // sdt
   major: { type: mongoose.Schema.Types.ObjectId, ref: 'Major', required: true }, // chuyên ngành
+  password: { type: String, required: true }, // mật khẩu
 });
 
 module.exports = mongoose.model('Teacher', teacherSchema); 

@@ -41,13 +41,14 @@ async function seed() {
   ]);
 
   // Thêm teacher mẫu
+  const teacherPassword = await bcrypt.hash('123456', 10);
   const teachers = await Teacher.insertMany([
-    { teacherId: 'GV001', name: 'Nguyễn Văn A', email: 'a@school.edu', phone: '0900000001', major: majors[0]._id },
-    { teacherId: 'GV002', name: 'Trần Thị B', email: 'b@school.edu', phone: '0900000002', major: majors[1]._id },
-    { teacherId: 'GV003', name: 'Lê Văn C', email: 'c@school.edu', phone: '0900000003', major: majors[2]._id },
-    { teacherId: 'GV004', name: 'Phạm Thị D', email: 'd@school.edu', phone: '0900000004', major: majors[3]._id },
-    { teacherId: 'GV005', name: 'Hoàng Văn E', email: 'e@school.edu', phone: '0900000005', major: majors[4]._id },
-    { teacherId: 'GV006', name: 'Đỗ Thị F', email: 'f@school.edu', phone: '0900000006', major: majors[5]._id },
+    { teacherId: 'GV001', name: 'Nguyễn Văn A', email: 'a@school.edu', phone: '0900000001', major: majors[0]._id, password: teacherPassword },
+    { teacherId: 'GV002', name: 'Trần Thị B', email: 'b@school.edu', phone: '0900000002', major: majors[1]._id, password: teacherPassword },
+    { teacherId: 'GV003', name: 'Lê Văn C', email: 'c@school.edu', phone: '0900000003', major: majors[2]._id, password: teacherPassword },
+    { teacherId: 'GV004', name: 'Phạm Thị D', email: 'd@school.edu', phone: '0900000004', major: majors[3]._id, password: teacherPassword },
+    { teacherId: 'GV005', name: 'Hoàng Văn E', email: 'e@school.edu', phone: '0900000005', major: majors[4]._id, password: teacherPassword },
+    { teacherId: 'GV006', name: 'Đỗ Thị F', email: 'f@school.edu', phone: '0900000006', major: majors[5]._id, password: teacherPassword },
   ]);
 
   // Thêm student mẫu
