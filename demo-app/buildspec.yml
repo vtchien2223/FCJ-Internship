@@ -1,0 +1,14 @@
+
+---
+
+## ✅ **Cách chạy thử local**
+
+```bash
+# Bước 1: Build image
+docker build -t secure-demo .
+
+# Bước 2: Chạy app
+docker run -p 3000:3000 secure-demo
+
+# Mở trình duyệt
+http://localhost:3000
